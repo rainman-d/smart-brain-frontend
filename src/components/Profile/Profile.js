@@ -8,7 +8,8 @@ class Profile extends React.Component {
             name: this.props.user.name,
             age: this.props.user.age,
             pet: this.props.user.pet,
-            entries: this.props.user.entries
+            entries: this.props.user.entries,
+            joined: this.props.user.joined
         }
     }
 
@@ -45,24 +46,30 @@ class Profile extends React.Component {
 
     }
 
+    formatDateJoined = (date) => {
+        var ts = new Date(date);
+        return ts.toLocaleDateString();
+    }
+
     render(){
-        // const {user} = this.props;
-        const { name, age, pet} = this.state;
+        const { name, age, pet, joined} = this.state;
         return (
             <div className="profile-modal">
             <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center bg-white">
             <main className="pa4 black-80 w-80">
                 <img src="http://tachyons.io/img/logo.jpg"
                      className="h3 w3 dib" alt="avatar"/>
-                <h1>{this.state.name}</h1>
+                <h1>{name}</h1>
+                <h4>Age: {age? age: 'Not Available'}</h4>
                 <h4>Images Submitted: {this.state.entries}</h4>
-                <p>Member since: January</p>
+                <h4>Member since: {this.formatDateJoined(joined)}</h4>
+                <h4>Pet: {pet ? pet : 'Not Available'}</h4>
                 <hr/>
                 <label className="mt2 fw6" htmlFor="user-name">Name:</label>
                 <input
                     onChange={this.onFormChange}
                     className="pa2 ba w-100"
-                    placeholder="john"
+                    placeholder={name ? name : 'Mohammed'}
                     type="text"
                     name="user-name"
                     id="name"
@@ -71,7 +78,7 @@ class Profile extends React.Component {
                 <input
                     onChange={this.onFormChange}
                     className="pa2 ba w-100"
-                    placeholder="56"
+                    placeholder={age? age: '57'}
                     type="text"
                     name="user-age"
                     id="age"
@@ -80,7 +87,7 @@ class Profile extends React.Component {
                 <input
                     onChange={this.onFormChange}
                     className="pa2 ba w-100"
-                    placeholder="dragon"
+                    placeholder={pet ? pet: 'dragon'}
                     type="text"
                     name="user-pet"
                     id="pet"
